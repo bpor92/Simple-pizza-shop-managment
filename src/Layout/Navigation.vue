@@ -9,11 +9,17 @@
         <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Home</a>
         </router-link>
-        <router-link to="/user" tag="li" class="nav-item" active-class="active">
+        <router-link v-if="isUserLoggedIn" to="/user" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">User</a>
         </router-link>
       </ul>
-      <span v-if="!isUserLoggedIn" class="text-white">Sign </span>
+      <div v-if="!isUserLoggedIn"> 
+        <router-link to="/sign-in" tag="span" class="text-white" active-class="active">Sign in</router-link>
+      </div>
+      <div v-else>
+        <span class="text-white" active-class="active" @click="logout">Logout</span>
+      </div>
+
     </div>
   </nav>
 </template>
@@ -22,6 +28,11 @@
     computed: {
       isUserLoggedIn() {
         return this.$store.getters.isUserLoggedIn
+      }
+    },
+    methods: {
+      logout(){
+        this.$store.dispatch('logout')
       }
     }
   }
