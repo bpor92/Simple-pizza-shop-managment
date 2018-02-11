@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Home</a>
         </router-link>
@@ -13,6 +13,16 @@
           <a class="nav-link">User</a>
         </router-link>
       </ul>
+      <span v-if="!isUserLoggedIn" class="text-white">Sign </span>
     </div>
   </nav>
 </template>
+<script>
+  export default {
+    computed: {
+      isUserLoggedIn() {
+        return this.$store.getters.isUserLoggedIn
+      }
+    }
+  }
+</script>
