@@ -25,15 +25,26 @@ const store = new Vuex.Store({
   },
   actions: {
     signIn({ commit, state, dispatch }, payload) {
-      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(res => {
-        commit('signIn', res.uid)
-      }).catch(err => {
-        console.log(err)
+      return new Promise((resolve, reject) => {
+        firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(res => {
+          commit('signIn', res.uid)
+          resolve()
+        }).catch(err => {
+          console.log(err)
+          reject()
+        })
+
       })
     },
     logout({commit, state, dispatch}, payload){
-      firebase.auth().signOut().then(user => {
-        commit('logout')
+      return new Promise((resolve, reject) => {
+        firebase.auth().signOut().then(user => {
+          commit('logout')
+          resolve()
+        }).catch(err => {
+          console.log(err)
+          reject()
+        })
       })
     }
   }

@@ -9,7 +9,7 @@
         <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Home</a>
         </router-link>
-        <router-link v-if="isUserLoggedIn" to="/user" tag="li" class="nav-item" active-class="active">
+        <router-link v-if="isUserLoggedIn" to="/users" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">User</a>
         </router-link>
       </ul>
@@ -32,7 +32,9 @@
     },
     methods: {
       logout(){
-        this.$store.dispatch('logout')
+        this.$store.dispatch('logout').then(() => {
+          this.$router.push('/')
+        })
       }
     }
   }

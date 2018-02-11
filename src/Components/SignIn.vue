@@ -25,12 +25,9 @@ export default {
   },
   methods: {
     signIn() {
-      let that = this
-      this.$store.dispatch('signIn', this.model).then(function(){
-        that.$router.push('/')
+      this.$store.dispatch('signIn', this.model).then(() => {
+        this.$router.push('/')
       })
-
-      
     }
   }
 };
