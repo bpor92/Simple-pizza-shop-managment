@@ -36,8 +36,7 @@ const actions = {
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(res => {
         commit('signIn', {uid: res.uid, email: res.email})
         resolve()
-      }).catch(err => {
-        console.log(err)
+      }).catch(() => {
         reject()
       })
 

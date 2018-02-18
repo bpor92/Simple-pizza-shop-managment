@@ -32,6 +32,9 @@
   
   <!-- modal -->
   <b-modal ref="modal" id="signIn" hide-footer title="Sign in">
+    <b-alert v-if="error" show variant="danger">
+      Incorrect login details
+    </b-alert>
     <div class="form-group">
       <label for="">Email</label>
       <input type="text" class="form-control" v-model="model.email">
@@ -51,7 +54,8 @@
         model: {
           email: "",
           password: ""
-        }
+        },
+        error: false
       };
     },
     computed: {
@@ -69,7 +73,10 @@
         this.$store.dispatch('signIn', this.model).then(() => {
           this.$router.push('/')
           this.$refs.modal.hide()
+        }).catch(() => {
+          this.error = true
         })
+      
       }
     }
   }
