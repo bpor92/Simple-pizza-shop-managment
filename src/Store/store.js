@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import router from '../Router/routes'
 Vue.use(Vuex);
 
+const user = firebase.auth().currentUser;
 
 const state = {
   isUserLoggedIn: null,
@@ -55,7 +56,15 @@ const actions = {
   },
   setUsersList: firebaseAction(({ bindFirebaseRef }, { ref }) => {
       bindFirebaseRef('users', ref)
-    })
+  }),
+  updateUserData({commit, state, dispatch} ,payload){
+
+    user.updatePassword(newPassword).then(function() {
+      // Update successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
   
 }
 

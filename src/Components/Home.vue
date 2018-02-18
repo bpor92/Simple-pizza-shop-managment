@@ -6,5 +6,6 @@
         <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa quis laborum voluptatem facere, non, perferendis excepturi ab aliquid velit distinctio, similique incidunt tenetur necessitatibus facilis. Cumque ullam consequatur voluptates in.</p>
       </div>
     </div>
+
   </div>
 </template>
