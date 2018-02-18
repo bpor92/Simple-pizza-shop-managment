@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import BootstrapVue from 'bootstrap-vue'
+
 import App from './App.vue'
 
 import { store } from './Store/store'
 import { routes } from './Router/routes'
 
 Vue.use(VueRouter)
+Vue.use(BootstrapVue)
 const router = new VueRouter({
   mode: 'history',
   routes

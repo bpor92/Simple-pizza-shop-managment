@@ -17,7 +17,15 @@
         <router-link to="/sign-in" tag="span" class="text-white" active-class="active">Sign in</router-link>
       </div>
       <div v-else>
-        <span class="text-white" active-class="active" @click="logout">Logout</span>
+        <ul class="navbar-nav mr-auto">
+          <router-link to="/settings" tag="li" class="nav-item" active-class="active" exact>
+            <a class="nav-link">Settings</a>
+          </router-link>
+          <li class="nav-item">
+            <a class="nav-link"  @click="logout">Logout</a>
+          </li>
+        </ul>
+
       </div>
 
     </div>
