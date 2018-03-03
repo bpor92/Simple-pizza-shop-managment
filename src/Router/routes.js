@@ -20,10 +20,18 @@ export const routes = [
         }
       }
     },
-    {path: '/menu', component: Menu},
+    {path: '/menu', component: Menu },
     {path: '/basket', component: Basket},
     {path: '/settings', component: Settings},
-    {path: '/admin', component: Panel},
+    {path: '/admin', component: Panel, beforeEnter: (to, from, next) => {
+        const user = firebase.auth().currentUser;
+        if(user){
+            next()
+        }else{
+            next(false)
+        }
+      }
+    },
     {path: '*', redirect: '/'}
     
 ]

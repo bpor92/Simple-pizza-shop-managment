@@ -7,9 +7,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
-        <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
-          <a class="nav-link">Home</a>
-        </router-link>
         <router-link to="/menu" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Menu</a>
         </router-link>

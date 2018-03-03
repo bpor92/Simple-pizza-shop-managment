@@ -11,7 +11,7 @@
           </b-button>
         </template>
       </b-table>
-    </div>
+    </div>  
   </div>
 </template>
 

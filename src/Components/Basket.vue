@@ -6,8 +6,11 @@
             <b-button size="sm" @click.stop="removeItem(row.index)" class="mr-2">
               Remove
             </b-button>
-            <b-button size="sm" @click.stop="row.toggleDetails" class="mr-2">
-              One more!
+            <b-button size="sm" @click.stop="incQty(row.index)" class="mr-2">
+              +
+            </b-button>
+            <b-button size="sm" @click.stop="decQty(row.index)" class="mr-2">
+              -
             </b-button>
           </template>
         </b-table>
@@ -29,6 +32,9 @@ export default {
         price: {
           label: "Price",
         },
+        quantity: {
+          label: 'Quantity'
+        },
         show_details: {
           label: 'Option'
         }
@@ -38,6 +44,12 @@ export default {
   methods: {
     removeItem(index){
       this.$store.dispatch('removeItem', index)
+    },
+    incQty(index){
+      this.$store.dispatch('incQty', index)
+    },
+    decQty(index){
+      this.$store.dispatch('decQty', index)
     }
   }
 };
