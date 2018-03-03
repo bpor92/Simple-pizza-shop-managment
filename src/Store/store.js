@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { dbUserRef } from '../firebase/firebase-config'
+import { dbUserRef, dbMenuRef } from '../firebase/firebase-config'
 
 import { firebaseMutations, firebaseAction } from "vuexfire";
 import firebase from 'firebase'
@@ -12,7 +12,8 @@ const user = firebase.auth().currentUser;
 const state = {
   isUserLoggedIn: null,
   users: [],
-  basket: []
+  basket: [],
+  Menu: []
 }
 
 const getters = {
@@ -76,6 +77,17 @@ const actions = {
   },
   removeItem({commit}, payload){
     commit('removeItem', payload)
+  },
+  addPizza({commit}, payload) {
+    dbMenuRef.push(payload).then(res => {
+      console.log(res)
+    })
+  },
+  importMenu: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('Menu', ref)
+  }),
+  removeItemFromMenu({commit}, payload) {
+    dbMenuRef.child(payload.key).remove()
   }
   
 }

@@ -21,7 +21,8 @@
         <span v-b-modal.signIn class="text-white nav-link">Sign in</span>
         <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">
           <router-link to="/basket" tag="li" class="nav-item" active-class="active" exact>
-            <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}</span></a>
+            <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}
+              </span></a>
           </router-link>
         </ul>
       </div>
@@ -29,9 +30,6 @@
         <ul class="navbar-nav mr-auto">
           <router-link to="/settings" tag="li" class="nav-item" active-class="active" exact>
             <a class="nav-link">Settings</a>
-          </router-link>
-          <router-link to="/basket" tag="li" class="nav-item" active-class="active" exact>
-            <a class="nav-link">Basket {{$store.state.basket.length}}</a>
           </router-link>
           <li class="nav-item">
             <a class="nav-link"  @click="logout">Logout</a>
