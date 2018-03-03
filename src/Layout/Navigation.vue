@@ -10,17 +10,28 @@
         <router-link to="/" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Home</a>
         </router-link>
+        <router-link to="/menu" tag="li" class="nav-item" active-class="active" exact>
+          <a class="nav-link">Menu</a>
+        </router-link>
         <router-link v-if="isUserLoggedIn" to="/users" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">User</a>
         </router-link>
       </ul>
-      <div v-if="!isUserLoggedIn"> 
-        <span v-b-modal.signIn class="text-white">Sign in</span>
+      <div class="nav-item row" v-if="!isUserLoggedIn"> 
+        <span v-b-modal.signIn class="text-white nav-link">Sign in</span>
+        <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">
+          <router-link to="/basket" tag="li" class="nav-item" active-class="active" exact>
+            <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}</span></a>
+          </router-link>
+        </ul>
       </div>
       <div v-else>
         <ul class="navbar-nav mr-auto">
           <router-link to="/settings" tag="li" class="nav-item" active-class="active" exact>
             <a class="nav-link">Settings</a>
+          </router-link>
+          <router-link to="/basket" tag="li" class="nav-item" active-class="active" exact>
+            <a class="nav-link">Basket {{$store.state.basket.length}}</a>
           </router-link>
           <li class="nav-item">
             <a class="nav-link"  @click="logout">Logout</a>

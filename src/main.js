@@ -10,7 +10,7 @@ import { routes } from './Router/routes'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
-Vue.use(VeeValidate)
+Vue.use(VeeValidate, {fieldsBagName: 'formFields'})
 
 const router = new VueRouter({
   mode: 'history',

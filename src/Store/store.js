@@ -11,7 +11,8 @@ const user = firebase.auth().currentUser;
 
 const state = {
   isUserLoggedIn: null,
-  users: []
+  users: [],
+  basket: []
 }
 
 const getters = {
@@ -27,6 +28,12 @@ const mutations = {
   },
   logout(state){
     Vue.set(state, 'isUserLoggedIn', null)
+  },
+  addToBasket(state, payload){
+    state.basket.push(payload)
+  },
+  removeItem(state, payload){
+    state.basket.splice(payload, 1)
   }
 }
 
@@ -63,6 +70,12 @@ const actions = {
     }).catch(function(error) {
       // An error happened.
     });
+  },
+  addToBasket({commit}, payload){
+    commit('addToBasket', payload)
+  },
+  removeItem({commit}, payload){
+    commit('removeItem', payload)
   }
   
 }
