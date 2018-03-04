@@ -14,6 +14,7 @@
             </b-button>
           </template>
         </b-table>
+        <b-alert show variant="primary">Summary:  {{summary}}</b-alert>
       </div>
       <div v-else>
         <b-alert show variant="light">Your basket its empty!</b-alert>
@@ -50,6 +51,12 @@ export default {
     },
     decQty(index){
       this.$store.dispatch('decQty', index)
+    }
+  },
+  computed: {
+    summary() {
+
+      return this.$store.state.basket.reduce((a, b) => a + parseFloat(b.total), 0)
     }
   }
 };
