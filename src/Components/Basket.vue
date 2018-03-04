@@ -29,7 +29,7 @@ export default {
         name: {
           label: "Pizza",
         },
-        price: {
+        total: {
           label: "Price",
         },
         quantity: {

@@ -36,9 +36,8 @@ const mutations = {
   removeItem(state, payload) {
     state.basket.splice(payload, 1);
   },
-  recalcPrice(state, payload) {
-    debugger
-    Vue.set(state.basket, 'price', payload )
+  recalcItem(state, payload) {
+    Vue.set(state.basket[payload.index], "total", payload.total);
   },
   incQty(state, payload) {
     Vue.set(state.basket, "quantity", state.basket[payload].quantity++);
@@ -49,12 +48,6 @@ const mutations = {
 };
 
 const actions = {
-  recalcPrice({commit, state}, payload){
-    const qty = state.basket[payload].quantity
-    const price = state.basket[payload].price
-    const total = qty * price
-    commit('recalcPrice', total)
-  },
   signIn({ commit, state, dispatch }, payload) {
     return new Promise((resolve, reject) => {
       firebase
@@ -100,17 +93,23 @@ const actions = {
   addToBasket({ commit }, payload) {
     commit("addToBasket", payload);
   },
-  incQty({ commit, dispatch}, payload) {
-
-    commit("incQty", payload);
-
+  recalcItem({ commit, state }, payload) {
+    const qty = state.basket[payload].quantity;
+    const price = state.basket[payload].price;
+    const total = parseFloat(qty) * price;
+    commit("recalcItem", { index: payload, total });
   },
-  decQty({ commit, state }, payload) {
-    const quantity = state.basket[payload].quantity
-    if(quantity === 1){
+  incQty({ commit, state, dispatch }, payload) {
+    commit("incQty", payload);
+    dispatch("recalcItem", payload);
+  },
+  decQty({ commit, state, dispatch}, payload) {
+    const quantity = state.basket[payload].quantity;
+    if (quantity === 1) {
       commit("removeItem", payload);
-    }else{
+    } else {
       commit("decQty", payload);
+      dispatch("recalcItem", payload);
     }
   },
   removeItem({ commit }, payload) {

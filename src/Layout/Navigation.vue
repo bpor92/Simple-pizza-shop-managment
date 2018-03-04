@@ -13,6 +13,9 @@
         <router-link v-if="isUserLoggedIn" to="/users" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">User</a>
         </router-link>
+        <router-link v-if="isUserLoggedIn" to="/admin" tag="li" class="nav-item" active-class="active">
+          <a class="nav-link">admin</a>
+        </router-link>
       </ul>
       <div class="nav-item row" v-if="!isUserLoggedIn"> 
         <span v-b-modal.signIn class="text-white nav-link">Sign in</span>
