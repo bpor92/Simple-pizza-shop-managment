@@ -11,9 +11,11 @@ const user = firebase.auth().currentUser;
 
 const state = {
   isUserLoggedIn: null,
+  orderInProgress: false,
   users: [],
   basket: [],
-  Menu: []
+  Menu: [],
+  Order: []
 };
 
 const getters = {
@@ -44,6 +46,12 @@ const mutations = {
   },
   decQty(state, payload) {
     Vue.set(state.basket, "quantity", state.basket[payload].quantity--);
+  },
+  orderInProgress(state, payload){
+    Vue.set(state, 'orderInProgress', payload)
+  },
+  clearBasket(state) {
+    state.basket = []
   }
 };
 
@@ -121,13 +129,17 @@ const actions = {
     });
   },
   submitOrder({commit, state}, payload){
-    debugger
     dbOrderRef.push(payload).then(res => {
-      console.log(res)
+      debugger
+      commit('orderInProgress', true)
+      commit('clearBasket')
     })
   },
   importMenu: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef("Menu", ref);
+  }),
+  fetchOrders: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef("Order", ref);
   }),
   removeItemFromMenu({ commit }, payload) {
     dbMenuRef.child(payload.key).remove();

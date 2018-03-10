@@ -10,11 +10,11 @@
         <router-link to="/menu" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Menu</a>
         </router-link>
-        <router-link v-if="isUserLoggedIn" to="/users" tag="li" class="nav-item" active-class="active">
-          <a class="nav-link">User</a>
-        </router-link>
         <router-link v-if="isUserLoggedIn" to="/admin/panel" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">Admin panel</a>
+        </router-link>
+        <router-link v-if="isUserLoggedIn" to="/admin/orders" tag="li" class="nav-item" active-class="active">
+          <a class="nav-link">Orders</a>
         </router-link>
       </ul>
       <div class="nav-item row" v-if="!isUserLoggedIn"> 
