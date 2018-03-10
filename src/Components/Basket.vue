@@ -15,6 +15,7 @@
           </template>
         </b-table>
         <b-alert show variant="primary">Summary:  {{summary}}</b-alert>
+        <b-button @click="submitOrder">Submit your order</b-button>
       </div>
       <div v-else>
         <b-alert show variant="light">Your basket its empty!</b-alert>
@@ -23,9 +24,11 @@
 </template>
 
 <script>
+import {dbOrderRef} from '../firebase/firebase-config'
 export default {
   data() {
     return {
+      summaryOrder: 0,
       fields: {
         name: {
           label: "Pizza",
@@ -51,12 +54,25 @@ export default {
     },
     decQty(index){
       this.$store.dispatch('decQty', index)
+    },
+    submitOrder() {
+      const order = this.$store.state.basket.map(order => {
+        return {
+          pizza: order.name,
+          quantity: order.quantity,
+          price: parseFloat(order.price),
+          total: parseFloat(order.total)
+        }
+      })
+      order.total = this.summaryOrder
+      this.$store.dispatch('submitOrder', order)
     }
   },
   computed: {
     summary() {
-
-      return this.$store.state.basket.reduce((a, b) => a + parseFloat(b.total), 0)
+      let summary = this.$store.state.basket.reduce((a, b) => a + parseFloat(b.total), 0)
+      this.summaryOrder = parseFloat(summary)
+      return summary
     }
   }
 };

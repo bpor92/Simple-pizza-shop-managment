@@ -13,12 +13,11 @@
         <router-link v-if="isUserLoggedIn" to="/users" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">User</a>
         </router-link>
-        <router-link v-if="isUserLoggedIn" to="/admin" tag="li" class="nav-item" active-class="active">
-          <a class="nav-link">admin</a>
+        <router-link v-if="isUserLoggedIn" to="/admin/panel" tag="li" class="nav-item" active-class="active">
+          <a class="nav-link">Admin panel</a>
         </router-link>
       </ul>
       <div class="nav-item row" v-if="!isUserLoggedIn"> 
-        <span v-b-modal.signIn class="text-white nav-link">Sign in</span>
         <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">
           <router-link to="/basket" tag="li" class="nav-item" active-class="active" exact>
             <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}
@@ -38,22 +37,6 @@
       </div>
     </div>
   </nav>
-  
-  <!-- modal -->
-  <b-modal ref="modal" id="signIn" hide-footer title="Sign in">
-    <b-alert v-if="error" show variant="danger">
-      Incorrect login details
-    </b-alert>
-    <div class="form-group">
-      <label for="">Email</label>
-      <input type="text" class="form-control" v-model="model.email">
-    </div>
-    <div class="form-group">
-      <label for="">Password</label>
-      <input type="password" class="form-control" v-model="model.password">
-    </div>
-    <button class="btn btn-primary" @click="signIn">Sign In</button>
-  </b-modal>
 </div>
 </template>
 <script>
