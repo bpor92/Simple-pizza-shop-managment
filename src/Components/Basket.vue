@@ -13,8 +13,36 @@
               -
             </b-button>
           </template>
+          
         </b-table>
         <b-alert show variant="primary">Summary:  {{summary}}</b-alert>
+        <b-card bg-variant="light">
+          <b-form-group horizontal
+                        breakpoint="lg"
+                        label="Address"
+                        label-size="lg"
+                        label-class="font-weight-bold pt-0"
+                        class="mb-0">
+            <b-form-group horizontal
+                          label="Street:"
+                          label-class="text-sm-right"
+                          label-for="nestedStreet">
+              <b-form-input v-model="address.street"></b-form-input>
+            </b-form-group>
+            <b-form-group horizontal
+                          label="City:"
+                          label-class="text-sm-right"
+                          label-for="nestedCity">
+              <b-form-input v-model="address.city"></b-form-input>
+            </b-form-group>
+            <b-form-group horizontal
+                          label="Telephone:"
+                          label-class="text-sm-right"
+                          label-for="nestedState">
+              <b-form-input v-model="address.telephone"></b-form-input>
+            </b-form-group>
+          </b-form-group>
+        </b-card>
         <b-button @click="submitOrder">Submit your order</b-button>
       </div>
       <div v-if="$store.state.basket.length === 0 && !$store.state.orderInProgress">
@@ -45,7 +73,12 @@ export default {
         },
         show_details: {
           label: 'Option'
-        }
+        },
+      },
+      address: {
+        street: '',
+        city: '',
+        telephone: ''
       }
     };
   },
@@ -60,7 +93,7 @@ export default {
       this.$store.dispatch('decQty', index)
     },
     submitOrder() {
-      const order = this.$store.state.basket.map(order => {
+      const items = this.$store.state.basket.map(order => {
         return {
           pizza: order.name,
           quantity: order.quantity,
@@ -68,7 +101,10 @@ export default {
           total: parseFloat(order.total)
         }
       })
+      const order = {}
+      order.details = items
       order.total = this.summaryOrder
+      order.address = this.address
       this.$store.dispatch('submitOrder', order)
     }
   },

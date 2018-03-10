@@ -7,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto">
-        <router-link to="/menu" tag="li" class="nav-item" active-class="active" exact>
+        <router-link  v-if="!isUserLoggedIn" to="/menu" tag="li" class="nav-item" active-class="active" exact>
           <a class="nav-link">Menu</a>
         </router-link>
         <router-link v-if="isUserLoggedIn" to="/admin/panel" tag="li" class="nav-item" active-class="active">
