@@ -10,7 +10,7 @@ Vue.use(Vuex);
 const user = firebase.auth().currentUser;
 
 const state = {
-  isUserLoggedIn: null,
+  isUserLoggedIn: false,
   orderInProgress: false,
   users: [],
   basket: [],
@@ -130,7 +130,6 @@ const actions = {
   },
   submitOrder({commit, state}, payload){
     dbOrderRef.push(payload).then(res => {
-      debugger
       commit('orderInProgress', true)
       commit('clearBasket')
     })
@@ -143,6 +142,9 @@ const actions = {
   }),
   removeItemFromMenu({ commit }, payload) {
     dbMenuRef.child(payload.key).remove();
+  },
+  changeStatus({commit}, payload) {
+    dbOrderRef.child(payload.id).update({status: payload.status})
   }
 };
 

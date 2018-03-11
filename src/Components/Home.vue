@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="background">
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-4">Simple pizzeria management application</h1>

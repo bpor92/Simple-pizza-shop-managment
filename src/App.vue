@@ -2,7 +2,7 @@
   <div id="app">
     <navigation></navigation>
     <div class="container">
-      <router-view class="mt-sm-5"></router-view>
+      <router-view class="mt-5"></router-view>
     </div>
   </div>
 </template>

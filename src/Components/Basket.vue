@@ -102,9 +102,12 @@ export default {
         }
       })
       const order = {}
+      order.id = Math.random().toString(8).slice(2, 6)
       order.details = items
       order.total = this.summaryOrder
       order.address = this.address
+      order.done = false
+      order.status = 'todo'
       this.$store.dispatch('submitOrder', order)
     }
   },
