@@ -16,6 +16,9 @@
         <router-link v-if="isUserLoggedIn" to="/admin/orders" tag="li" class="nav-item" active-class="active">
           <a class="nav-link">Orders</a>
         </router-link>
+        <router-link v-if="isUserLoggedIn" to="/admin/day-report" tag="li" class="nav-item" active-class="active">
+          <a class="nav-link">Day report</a>
+        </router-link>
       </ul>
       <div class="nav-item row" v-if="!isUserLoggedIn"> 
         <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">

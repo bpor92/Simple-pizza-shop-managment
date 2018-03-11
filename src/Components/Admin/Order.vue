@@ -11,7 +11,7 @@
       > 
       <div slot="header">
         {{order.address.city + ', ' + order.address.street}} 
-        <span class="badge" :class="status">{{order.status === 'inProgress' ? 'in progress' : 'todo'}}</span>
+        <span class="badge" :class="status">{{badgeInformation}}</span>
         <small class="d-block">telephone: {{order.address.telephone}}</small>
         <small class="text-muted">ID : {{order.id}}</small>
       </div>
@@ -23,7 +23,8 @@
 
       </div>
       <div slot="footer">
-        <button class="btn btn-success btn-block" @click="changeStatus(order['.key'])">Prepare</button>
+        <button v-if="order.status === 'todo'" class="btn btn-default btn-block" @click="changeStatus(order['.key'], 'inProgress')">Prepare!</button>
+        <button v-else class="btn btn-success btn-block" @click="changeStatus(order['.key'], 'done')">Done!</button>
       </div>
       </b-card>
   </div>
@@ -36,8 +37,8 @@ export default {
     }
   },
   methods: {
-    changeStatus(id) {
-      this.$store.dispatch("changeStatus", { id, status: "inProgress" });
+    changeStatus(id, status) {
+      this.$store.dispatch("changeStatus", { id, status});
     }
   },
   computed: {
@@ -47,7 +48,7 @@ export default {
       }else if(this.order.status === 'todo'){
         return 'badge-danger'
       }else{
-        return 'badge-primary'
+        return 'badge-success'
       }
     },
     statusBorder() {
@@ -56,7 +57,16 @@ export default {
       }else if(this.order.status === 'todo'){
         return 'danger'
       }else{
-        return 'primary'
+        return 'success'
+      }
+    },
+    badgeInformation() {
+      if(this.order.status === 'inProgress'){
+        return 'IN PROGRESS'
+      }else if(this.order.status === 'todo'){
+        return 'TODO'
+      }else{
+        return 'DONE'
       }
     }
   }

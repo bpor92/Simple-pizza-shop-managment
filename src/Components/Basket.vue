@@ -57,6 +57,7 @@
 
 <script>
 import {dbOrderRef} from '../firebase/firebase-config'
+import { currentDate } from '../Helpers/date'
 export default {
   data() {
     return {
@@ -108,6 +109,8 @@ export default {
       order.address = this.address
       order.done = false
       order.status = 'todo'
+      order.date = currentDate
+
       this.$store.dispatch('submitOrder', order)
     }
   },

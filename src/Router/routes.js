@@ -5,6 +5,7 @@ import Basket from '../Components/Basket.vue'
 import Panel from '../Components/Admin/Panel.vue'
 import Admin from '../Components/Admin/Admin.vue'
 import Orders from '../Components/Admin/Orders.vue'
+import DayReport from '../Components/Admin/DayReport.vue'
 
 
 import firebase from 'firebase'
@@ -32,6 +33,15 @@ export const routes = [
             next(false)
         }
     }},
+    {path: '/admin/day-report', component: DayReport, beforeEnter: (to, from, next) => {
+        const user = firebase.auth().currentUser;
+        if(user){
+            next()
+        }else{
+            next(false)
+        }
+    }},
+    
     
     {path: '*', redirect: '/'}
     
