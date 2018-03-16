@@ -8,25 +8,38 @@
           :order="order"
           class="col-sm-3 mb-5"/>
       </div>
+      <input type="date" v-model="summaryDate" />
+      <span>summary day: {{summary}}</span>
     </b-card>
   </div>
 
 </template>
 <script>
-  import {dbOrderRef} from '../../firebase/firebase-config'
-  import {currentDate } from '../../Helpers/date'
-  import Order from './Order.vue'
-  export default {
-    components: {
-      Order
+import { dbOrderRef } from "../../firebase/firebase-config";
+import { currentDate } from "../../Helpers/date";
+import Order from "./Order.vue";
+export default {
+  components: {
+    Order
+  },
+  created() {
+    this.$store.dispatch("fetchOrders", dbOrderRef);
+  },
+  data() {
+    return {
+      summaryDate: currentDate
+    };
+  },
+  computed: {
+    daySummary() {
+      return this.$store.state.Order.filter(order => order.status === "done");
     },
-    created() {
-      this.$store.dispatch("fetchOrders", dbOrderRef);
+    summary() {
+      return this.$store.state.Order.filter(
+        order => order.status === "done" && order.date === this.summaryDate
+      ).reduce((a, b) => a + parseFloat(b.total), 0);
     },
-    computed: {
-      daySummary() {
-        return this.$store.state.Order.filter(order => order.status === 'done')
-      }
-    }
+
   }
+};
 </script>

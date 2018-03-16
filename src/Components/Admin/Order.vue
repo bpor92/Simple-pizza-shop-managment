@@ -4,8 +4,6 @@
         header-text-variant="white"
         header-tag="header"
         header-bg-variant="dark"
-        footer="Card Footer"
-        footer-tag="footer"
         footer-bg-variant="white"
         :border-variant="statusBorder"
       > 
@@ -22,7 +20,7 @@
         <small>total: {{order.total}}</small>
 
       </div>
-      <div slot="footer">
+      <div  v-if="order.status !== 'done'" slot="footer">
         <button v-if="order.status === 'todo'" class="btn btn-default btn-block" @click="changeStatus(order['.key'], 'inProgress')">Prepare!</button>
         <button v-else class="btn btn-success btn-block" @click="changeStatus(order['.key'], 'done')">Done!</button>
       </div>

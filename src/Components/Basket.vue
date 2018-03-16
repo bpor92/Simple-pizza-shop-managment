@@ -50,15 +50,19 @@
       </div>
       <div v-if="$store.state.orderInProgress">
         <b-alert show variant="success">Your Order is under preparation</b-alert>
-
       </div>
+      <chat />
     </div>
 </template>
 
 <script>
 import {dbOrderRef} from '../firebase/firebase-config'
 import { currentDate } from '../Helpers/date'
+import Chat from './Chat.vue'
 export default {
+  components: {
+    Chat
+  },  
   data() {
     return {
       summaryOrder: 0,
