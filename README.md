@@ -1,4 +1,4 @@
-# users-management
+# Simple pizza shop managment
 
 > A Vue.js project
 

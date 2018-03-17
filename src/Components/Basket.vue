@@ -49,80 +49,110 @@
         <b-alert show variant="light">Your basket its empty!</b-alert>
       </div>
       <div v-if="$store.state.orderInProgress">
-        <b-alert show variant="success">Your Order is under preparation</b-alert>
+        
       </div>
-      <chat />
+      <!-- <chat /> -->
+
+      <div v-for="status in showStatus" :key="status.id">
+           <b-alert show variant="info" v-show="status.status ==='todo'">Your Order is waiting for confirmation</b-alert>
+           <b-alert show variant="warning" v-show="status.status ==='inProgress'">Your Order is under preparation!</b-alert>
+           <b-alert show variant="success" v-show="status.status ==='done'">Your pizza is on the way</b-alert>
+      </div>
+
+
     </div>
 </template>
 
 <script>
-import {dbOrderRef} from '../firebase/firebase-config'
-import { currentDate } from '../Helpers/date'
-import Chat from './Chat.vue'
+import { dbOrderRef } from "../firebase/firebase-config";
+import { currentDate } from "../Helpers/date";
+import Chat from "./Chat.vue";
 export default {
   components: {
     Chat
-  },  
+  },
   data() {
     return {
       summaryOrder: 0,
       fields: {
         name: {
-          label: "Pizza",
+          label: "Pizza"
         },
         total: {
-          label: "Price",
+          label: "Price"
         },
         quantity: {
-          label: 'Quantity'
+          label: "Quantity"
         },
         show_details: {
-          label: 'Option'
-        },
+          label: "Option"
+        }
       },
       address: {
-        street: '',
-        city: '',
-        telephone: ''
-      }
+        street: "",
+        city: "",
+        telephone: ""
+      },
+      orderId: false
     };
   },
   methods: {
-    removeItem(index){
-      this.$store.dispatch('removeItem', index)
+    removeItem(index) {
+      this.$store.dispatch("removeItem", index);
     },
-    incQty(index){
-      this.$store.dispatch('incQty', index)
+    incQty(index) {
+      this.$store.dispatch("incQty", index);
     },
-    decQty(index){
-      this.$store.dispatch('decQty', index)
+    decQty(index) {
+      this.$store.dispatch("decQty", index);
     },
     submitOrder() {
+      const order = this.prepareOrder();
+      this.orderId = order.id;
+      this.$store.dispatch("submitOrder", order);
+    },
+    fetchOrder() {
+      this.$store.dispatch("fetchOrders", dbOrderRef);
+    },
+    prepareOrder() {
       const items = this.$store.state.basket.map(order => {
         return {
           pizza: order.name,
           quantity: order.quantity,
           price: parseFloat(order.price),
           total: parseFloat(order.total)
-        }
-      })
-      const order = {}
-      order.id = Math.random().toString(8).slice(2, 6)
-      order.details = items
-      order.total = this.summaryOrder
-      order.address = this.address
-      order.done = false
-      order.status = 'todo'
-      order.date = currentDate
+        };
+      });
 
-      this.$store.dispatch('submitOrder', order)
+      return {
+        id: Math.random()
+          .toString(8)
+          .slice(2, 6),
+        details: items,
+        total: this.summaryOrder,
+        address: this.address,
+        done: false,
+        status: "todo",
+        date: currentDate
+      };
+    }
+  },
+  watch: {
+    orderId() {n
+      this.fetchOrder();
     }
   },
   computed: {
     summary() {
-      let summary = this.$store.state.basket.reduce((a, b) => a + parseFloat(b.total), 0)
-      this.summaryOrder = parseFloat(summary)
-      return summary
+      let summary = this.$store.state.basket.reduce(
+        (a, b) => a + parseFloat(b.total),
+        0
+      );
+      this.summaryOrder = parseFloat(summary);
+      return summary;
+    },
+    showStatus() {
+      return this.$store.state.Order.filter(order => order.id === this.orderId);
     }
   }
 };

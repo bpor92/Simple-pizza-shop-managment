@@ -23,6 +23,7 @@ export default {
     this.$on('orderInProgress', function (chatMessage) {
         this.orderInProgress(chatMessage)
     })
+
   },
   data() {
     return {
