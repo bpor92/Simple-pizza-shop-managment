@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div v-if="$store.state.basket.length> 0 && !$store.state.orderInProgress">
+      <div v-if="$store.state.basket.length> 0">
         <b-table striped responsive  hover :items="$store.state.basket" :dark="true" :fields="fields">
           <template slot="show_details" slot-scope="row">
             <b-button size="sm" @click.stop="removeItem(row.index)" class="mr-2">
@@ -45,19 +45,17 @@
         </b-card>
         <b-button @click="submitOrder">Submit your order</b-button>
       </div>
-      <div v-if="$store.state.basket.length === 0 && !$store.state.orderInProgress">
-        <b-alert show variant="light">Your basket its empty!</b-alert>
-      </div>
-      <div v-if="$store.state.orderInProgress">
-        
-      </div>
-      <!-- <chat /> -->
-
-      <div v-for="status in showStatus" :key="status.id">
+      <div v-else v-for="status in showStatus" :key="status.id">
            <b-alert show variant="info" v-show="status.status ==='todo'">Your Order is waiting for confirmation</b-alert>
            <b-alert show variant="warning" v-show="status.status ==='inProgress'">Your Order is under preparation!</b-alert>
            <b-alert show variant="success" v-show="status.status ==='done'">Your pizza is on the way</b-alert>
       </div>
+      <div v-if="$store.state.basket.length === 0 && !$store.state.orderInProgress">
+        <b-alert show variant="light">Your basket its empty!</b-alert>
+      </div>
+
+      <!-- <chat /> -->
+
 
 
     </div>
@@ -138,7 +136,7 @@ export default {
     }
   },
   watch: {
-    orderId() {n
+    orderId() {
       this.fetchOrder();
     }
   },
