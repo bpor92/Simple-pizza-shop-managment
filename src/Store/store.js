@@ -1,14 +1,12 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import { dbUserRef, dbMenuRef, dbOrderRef } from "../firebase/firebase-config";
-
-import { firebaseMutations, firebaseAction } from "vuexfire";
-import firebase from "firebase";
-import router from "../Router/routes";
-Vue.use(Vuex);
+import Vue from "vue"
+import Vuex from "vuex"
+import firebase from "firebase"
+import { dbUserRef, dbMenuRef, dbOrderRef } from "../firebase/firebase-config"
+import { firebaseMutations, firebaseAction } from "vuexfire"
+import router from "../Router/routes"
+Vue.use(Vuex)
 
 const user = firebase.auth().currentUser;
-
 const state = {
   isUserLoggedIn: false,
   orderInProgress: false,
@@ -26,26 +24,26 @@ const getters = {
 const mutations = {
   ...firebaseMutations,
   signIn(state, payload) {
-    Vue.set(state, "isUserLoggedIn", payload.uid);
-    Vue.set(state, "email", payload.email);
+    Vue.set(state, "isUserLoggedIn", payload.uid)
+    Vue.set(state, "email", payload.email)
   },
   logout(state) {
-    Vue.set(state, "isUserLoggedIn", null);
+    Vue.set(state, "isUserLoggedIn", null)
   },
   addToBasket(state, payload) {
-    state.basket.push(payload);
+    state.basket.push(payload)
   },
   removeItem(state, payload) {
-    state.basket.splice(payload, 1);
+    state.basket.splice(payload, 1)
   },
   recalcItem(state, payload) {
-    Vue.set(state.basket[payload.index], "total", payload.total);
+    Vue.set(state.basket[payload.index], "total", payload.total)
   },
   incQty(state, payload) {
-    Vue.set(state.basket, "quantity", state.basket[payload].quantity++);
+    Vue.set(state.basket, "quantity", state.basket[payload].quantity++)
   },
   decQty(state, payload) {
-    Vue.set(state.basket, "quantity", state.basket[payload].quantity--);
+    Vue.set(state.basket, "quantity", state.basket[payload].quantity--)
   },
   orderInProgress(state, payload){
     Vue.set(state, 'orderInProgress', payload)
@@ -62,11 +60,11 @@ const actions = {
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(res => {
-          commit("signIn", { uid: res.uid, email: res.email });
-          resolve();
+          commit("signIn", { uid: res.uid, email: res.email })
+          resolve()
         })
         .catch(() => {
-          reject();
+          reject()
         });
     });
   },
@@ -76,17 +74,17 @@ const actions = {
         .auth()
         .signOut()
         .then(user => {
-          commit("logout");
-          resolve();
+          commit("logout")
+          resolve()
         })
         .catch(err => {
-          console.log(err);
-          reject();
+          console.log(err)
+          reject()
         });
     });
   },
   setUsersList: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef("users", ref);
+    bindFirebaseRef("users", ref)
   }),
   updateUserData({ commit, state, dispatch }, payload) {
     user
@@ -99,33 +97,33 @@ const actions = {
       });
   },
   addToBasket({ commit }, payload) {
-    commit("addToBasket", payload);
+    commit("addToBasket", payload)
   },
   recalcItem({ commit, state }, payload) {
-    const qty = state.basket[payload].quantity;
-    const price = state.basket[payload].price;
-    const total = parseFloat(qty) * price;
-    commit("recalcItem", { index: payload, total });
+    const qty = state.basket[payload].quantity
+    const price = state.basket[payload].price
+    const total = parseFloat(qty) * price
+    commit("recalcItem", { index: payload, total })
   },
   incQty({ commit, state, dispatch }, payload) {
-    commit("incQty", payload);
-    dispatch("recalcItem", payload);
+    commit("incQty", payload)
+    dispatch("recalcItem", payload)
   },
   decQty({ commit, state, dispatch}, payload) {
-    const quantity = state.basket[payload].quantity;
+    const quantity = state.basket[payload].quantity
     if (quantity === 1) {
-      commit("removeItem", payload);
+      commit("removeItem", payload)
     } else {
-      commit("decQty", payload);
-      dispatch("recalcItem", payload);
+      commit("decQty", payload)
+      dispatch("recalcItem", payload)
     }
   },
   removeItem({ commit }, payload) {
-    commit("removeItem", payload);
+    commit("removeItem", payload)
   },
   addPizza({ commit }, payload) {
     dbMenuRef.push(payload).then(res => {
-      console.log(res);
+      console.log(res)
     });
   },
   submitOrder({commit, state}, payload){
@@ -135,18 +133,18 @@ const actions = {
     })
   },
   importMenu: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef("Menu", ref);
+    bindFirebaseRef("Menu", ref)
   }),
   fetchOrders: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef("Order", ref);
+    bindFirebaseRef("Order", ref)
   }),
   removeItemFromMenu({ commit }, payload) {
-    dbMenuRef.child(payload.key).remove();
+    dbMenuRef.child(payload.key).remove()
   },
   changeStatus({commit}, payload) {
     dbOrderRef.child(payload.id).update({status: payload.status})
   }
-};
+}
 
-const store = new Vuex.Store({ state, getters, actions, mutations });
-export { store };
+const store = new Vuex.Store({ state, getters, actions, mutations })
+export { store }

@@ -1,6 +1,6 @@
 <template>
   <div>
-     <b-alert show variant="success">{{orderResponse}}ssss</b-alert>
+    <b-alert show variant="success">{{orderResponse}}</b-alert>
   </div>
 </template>
 <script>

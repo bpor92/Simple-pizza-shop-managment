@@ -6,15 +6,12 @@
     <div v-else>
       <b-table striped responsive  hover :items="$store.state.Menu" :dark="true" :fields="fields">
         <template slot="show_details" slot-scope="row">
-          <b-button size="sm" @click.stop="removeItemFromMenu(row.index)" class="mr-2">
-            X
-          </b-button>
+          <b-button size="sm" @click.stop="removeItemFromMenu(row.index)" class="mr-2">X</b-button>
         </template>
       </b-table>
     </div>  
   </div>
 </template>
-
 
 <script>
 import {dbMenuRef} from '../../firebase/firebase-config'
@@ -40,5 +37,5 @@ export default {
       this.$store.dispatch('removeItemFromMenu', {key, index})
     }
   }
-};
+}
 </script>

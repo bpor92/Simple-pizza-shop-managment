@@ -26,13 +26,13 @@ export default {
   },
   methods: {
     addToBasket(order) {
-      this.$store.dispatch("addToBasket", order);
+      this.$store.dispatch("addToBasket", order)
     }
   },
   computed: {
     isInBasket() {
-      return this.$store.state.basket.find(item => item.name === this.item.name);
+      return this.$store.state.basket.find(item => item.name === this.item.name)
     }
   }
-};
+}
 </script>

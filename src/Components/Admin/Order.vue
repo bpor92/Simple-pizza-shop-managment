@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-card 
-        header-text-variant="white"
-        header-tag="header"
-        header-bg-variant="dark"
-        footer-bg-variant="white"
-        :border-variant="statusBorder"
+      header-text-variant="white"
+      header-tag="header"
+      header-bg-variant="dark"
+      footer-bg-variant="white"
+      :border-variant="statusBorder"
       > 
       <div slot="header">
         {{order.address.city + ', ' + order.address.street}} 
@@ -18,15 +18,15 @@
       </div>
       <div class="text-right">
         <small>total: {{order.total}}</small>
-
       </div>
       <div  v-if="order.status !== 'done'" slot="footer">
         <button v-if="order.status === 'todo'" class="btn btn-default btn-block" @click="changeStatus(order['.key'], 'inProgress')">Prepare!</button>
         <button v-else class="btn btn-success btn-block" @click="changeStatus(order['.key'], 'done')">Done!</button>
       </div>
-      </b-card>
+    </b-card>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     changeStatus(id, status) {
-      this.$store.dispatch("changeStatus", { id, status});
+      this.$store.dispatch("changeStatus", { id, status})
     }
   },
   computed: {

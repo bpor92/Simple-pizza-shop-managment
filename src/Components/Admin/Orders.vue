@@ -18,18 +18,17 @@
           class="col-sm-3 mb-5"/>
       </div>
     </b-card>
-  
   </div>
-  
 </template>
 
 <script>
 import { dbOrderRef } from "../../firebase/firebase-config";
 import Order from './Order.vue'
+
 export default {
   components: {Order},
   created() {
-    this.$store.dispatch("fetchOrders", dbOrderRef);
+    this.$store.dispatch("fetchOrders", dbOrderRef)
   },
   computed: {
     ordersTodo() {
@@ -38,8 +37,7 @@ export default {
     ordersInProgress() {
       return this.$store.state.Order.filter(order => order.status === 'inProgress')
     }
-  },
-
-};
+  }
+}
 </script>
 

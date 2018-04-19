@@ -23,23 +23,20 @@ export default {
     Order
   },
   created() {
-    this.$store.dispatch("fetchOrders", dbOrderRef);
+    this.$store.dispatch("fetchOrders", dbOrderRef)
   },
   data() {
     return {
       summaryDate: currentDate
-    };
+    }
   },
   computed: {
     daySummary() {
       return this.$store.state.Order.filter(order => order.status === "done");
     },
     summary() {
-      return this.$store.state.Order.filter(
-        order => order.status === "done" && order.date === this.summaryDate
-      ).reduce((a, b) => a + parseFloat(b.total), 0);
-    },
-
+      return this.$store.state.Order.filter(order => order.status === "done" && order.date === this.summaryDate).reduce((a, b) => a + parseFloat(b.total), 0);
+    }
   }
-};
+}
 </script>
