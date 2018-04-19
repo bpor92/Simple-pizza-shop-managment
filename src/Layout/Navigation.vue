@@ -20,7 +20,7 @@
           <a class="nav-link">Day report</a>
         </router-link>
       </ul>
-      <div class="nav-item row" v-if="!isUserLoggedIn"> 
+      <div class="nav-item row" v-if="!isUserLoggedIn">
         <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">
           <router-link to="/basket" tag="li" class="nav-item ml-3" active-class="active" exact>
             <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}
@@ -47,11 +47,11 @@
     data() {
       return {
         model: {
-          email: "",
-          password: ""
+          email: '',
+          password: ''
         },
         error: false
-      };
+      }
     },
     computed: {
       isUserLoggedIn() {
@@ -59,7 +59,7 @@
       }
     },
     methods: {
-      logout(){
+      logout() {
         this.$store.dispatch('logout').then(() => {
           this.$router.push('/')
         })
@@ -71,7 +71,6 @@
         }).catch(() => {
           this.error = true
         })
-      
       }
     }
   }

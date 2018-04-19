@@ -42,5 +42,5 @@ export const routes = [
       next(false)
     }
   }},
-  {path: '*', redirect: '/'} 
+  {path: '*', redirect: '/'}
 ]

@@ -50,9 +50,9 @@
 </template>
 
 <script>
-import { dbOrderRef } from "../firebase/firebase-config";
-import { currentDate } from "../Helpers/date";
-import Chat from "./Chat.vue";
+import { dbOrderRef } from '../firebase/firebase-config'
+import { currentDate } from '../Helpers/date'
+import Chat from './Chat.vue'
 export default {
   components: {
     Chat
@@ -62,43 +62,43 @@ export default {
       summaryOrder: 0,
       fields: {
         name: {
-          label: "Pizza"
+          label: 'Pizza'
         },
         total: {
-          label: "Price"
+          label: 'Price'
         },
         quantity: {
-          label: "Quantity"
+          label: 'Quantity'
         },
         show_details: {
-          label: "Option"
+          label: 'Option'
         }
       },
       address: {
-        street: "",
-        city: "",
-        telephone: ""
+        street: '',
+        city: '',
+        telephone: ''
       },
       orderId: false
-    };
+    }
   },
   methods: {
     removeItem(index) {
-      this.$store.dispatch("removeItem", index);
+      this.$store.dispatch('removeItem', index)
     },
     incQty(index) {
-      this.$store.dispatch("incQty", index);
+      this.$store.dispatch('incQty', index)
     },
     decQty(index) {
-      this.$store.dispatch("decQty", index);
+      this.$store.dispatch('decQty', index)
     },
     submitOrder() {
-      const order = this.prepareOrder();
-      this.orderId = order.id;
-      this.$store.dispatch("submitOrder", order);
+      const order = this.prepareOrder()
+      this.orderId = order.id
+      this.$store.dispatch('submitOrder', order)
     },
     fetchOrder() {
-      this.$store.dispatch("fetchOrders", dbOrderRef);
+      this.$store.dispatch('fetchOrders', dbOrderRef)
     },
     prepareOrder() {
       const items = this.$store.state.basket.map(order => {
@@ -107,8 +107,8 @@ export default {
           quantity: order.quantity,
           price: parseFloat(order.price),
           total: parseFloat(order.total)
-        };
-      });
+        }
+      })
 
       return {
         id: Math.random()
@@ -118,14 +118,14 @@ export default {
         total: this.summaryOrder,
         address: this.address,
         done: false,
-        status: "todo",
+        status: 'todo',
         date: currentDate
-      };
+      }
     }
   },
   watch: {
     orderId() {
-      this.fetchOrder();
+      this.fetchOrder()
     }
   },
   computed: {
@@ -133,13 +133,13 @@ export default {
       let summary = this.$store.state.basket.reduce(
         (a, b) => a + parseFloat(b.total),
         0
-      );
-      this.summaryOrder = parseFloat(summary);
-      return summary;
+      )
+      this.summaryOrder = parseFloat(summary)
+      return summary
     },
     showStatus() {
-      return this.$store.state.Order.filter(order => order.id === this.orderId);
+      return this.$store.state.Order.filter(order => order.id === this.orderId)
     }
   }
-};
+}
 </script>

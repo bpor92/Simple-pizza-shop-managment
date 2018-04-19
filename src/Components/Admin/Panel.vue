@@ -17,7 +17,7 @@
           label="Description:"
           label-class="text-sm-right"
           label-for="nestedCity">
-          <b-form-textarea 
+          <b-form-textarea
             id="nestedCity"
             v-model.trim="model.description"
             placeholder="Enter something"
@@ -56,8 +56,8 @@ export default {
   },
   methods: {
     addPizza() {
-      this.$store.dispatch("addPizza", this.model)
+      this.$store.dispatch('addPizza', this.model)
     }
   }
-};
+}
 </script>

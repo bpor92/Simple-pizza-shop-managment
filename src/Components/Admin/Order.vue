@@ -1,14 +1,14 @@
 <template>
   <div>
-    <b-card 
+    <b-card
       header-text-variant="white"
       header-tag="header"
       header-bg-variant="dark"
       footer-bg-variant="white"
       :border-variant="statusBorder"
-      > 
+      >
       <div slot="header">
-        {{order.address.city + ', ' + order.address.street}} 
+        {{order.address.city + ', ' + order.address.street}}
         <span class="badge" :class="status">{{badgeInformation}}</span>
         <small class="d-block">telephone: {{order.address.telephone}}</small>
         <small class="text-muted">ID : {{order.id}}</small>
@@ -36,37 +36,37 @@ export default {
   },
   methods: {
     changeStatus(id, status) {
-      this.$store.dispatch("changeStatus", { id, status})
+      this.$store.dispatch('changeStatus', { id, status })
     }
   },
   computed: {
-    status(){
-      if(this.order.status === 'inProgress'){
+    status() {
+      if (this.order.status === 'inProgress') {
         return 'badge-warning'
-      }else if(this.order.status === 'todo'){
+      } else if (this.order.status === 'todo') {
         return 'badge-danger'
-      }else{
+      } else {
         return 'badge-success'
       }
     },
     statusBorder() {
-      if(this.order.status === 'inProgress'){
+      if (this.order.status === 'inProgress') {
         return 'warning'
-      }else if(this.order.status === 'todo'){
+      } else if (this.order.status === 'todo') {
         return 'danger'
-      }else{
+      } else {
         return 'success'
       }
     },
     badgeInformation() {
-      if(this.order.status === 'inProgress'){
+      if (this.order.status === 'inProgress') {
         return 'IN PROGRESS'
-      }else if(this.order.status === 'todo'){
+      } else if (this.order.status === 'todo') {
         return 'TODO'
-      }else{
+      } else {
         return 'DONE'
       }
     }
   }
-};
+}
 </script>

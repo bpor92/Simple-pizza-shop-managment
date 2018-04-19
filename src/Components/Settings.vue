@@ -52,10 +52,10 @@
       }
     },
     methods: {
-      editUserData(){
+      editUserData() {
         this.isEdit = !this.isEdit
       },
-      editEmail(){
+      editEmail() {
         this.isEditEmail = true
       }
     }

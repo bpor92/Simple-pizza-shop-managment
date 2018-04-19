@@ -11,7 +11,7 @@ import Pizza from './Pizza'
 export default {
   components: {Pizza},
   created() {
-    this.$store.dispatch("importMenu", dbMenuRef)
+    this.$store.dispatch('importMenu', dbMenuRef)
   }
 }
 </script>

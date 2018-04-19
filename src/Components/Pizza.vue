@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     addToBasket(order) {
-      this.$store.dispatch("addToBasket", order)
+      this.$store.dispatch('addToBasket', order)
     }
   },
   computed: {

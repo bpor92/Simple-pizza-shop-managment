@@ -21,20 +21,20 @@ export default {
   data() {
     return {
       model: {
-        email: "",
-        password: ""
+        email: '',
+        password: ''
       }
     }
   },
   methods: {
     signIn() {
-      this.$store.dispatch("signIn", this.model)
+      this.$store.dispatch('signIn', this.model)
         .then(() => {
-          this.$router.push("/admin/panel");
-          this.$refs.modal.hide();
+          this.$router.push('/admin/panel')
+          this.$refs.modal.hide()
         })
         .catch(() => {
-          this.error = true;
+          this.error = true
         })
     }
   }

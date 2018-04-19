@@ -9,7 +9,7 @@
           <b-button size="sm" @click.stop="removeItemFromMenu(row.index)" class="mr-2">X</b-button>
         </template>
       </b-table>
-    </div>  
+    </div>
   </div>
 </template>
 
