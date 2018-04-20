@@ -53,6 +53,7 @@
 import { dbOrderRef } from '../firebase/firebase-config'
 import { currentDate } from '../Helpers/date'
 import Chat from './Chat.vue'
+
 export default {
   components: {
     Chat
@@ -138,7 +139,8 @@ export default {
       return summary
     },
     showStatus() {
-      return this.$store.state.Order.filter(order => order.id === this.orderId)
+      return this.$store.state.Order
+        .filter(order => order.id === this.orderId)
     }
   }
 }

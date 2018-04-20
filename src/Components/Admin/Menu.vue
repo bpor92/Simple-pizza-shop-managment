@@ -15,6 +15,7 @@
 
 <script>
 import {dbMenuRef} from '../../firebase/firebase-config'
+
 export default {
   created() {
     this.$store.dispatch('importMenu', dbMenuRef)

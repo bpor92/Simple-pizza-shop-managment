@@ -8,7 +8,7 @@
       :border-variant="statusBorder"
       >
       <div slot="header">
-        {{order.address.city + ', ' + order.address.street}}
+        {{order.address.city}}, {{order.address.street}}
         <span class="badge" :class="status">{{badgeInformation}}</span>
         <small class="d-block">telephone: {{order.address.telephone}}</small>
         <small class="text-muted">ID : {{order.id}}</small>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {informationStatus, badgeStatus, borderStatus} from '../../Helpers/status'
+
 export default {
   props: {
     order: {
@@ -41,31 +43,13 @@ export default {
   },
   computed: {
     status() {
-      if (this.order.status === 'inProgress') {
-        return 'badge-warning'
-      } else if (this.order.status === 'todo') {
-        return 'badge-danger'
-      } else {
-        return 'badge-success'
-      }
+      return badgeStatus[this.order.status]
     },
     statusBorder() {
-      if (this.order.status === 'inProgress') {
-        return 'warning'
-      } else if (this.order.status === 'todo') {
-        return 'danger'
-      } else {
-        return 'success'
-      }
+      return borderStatus[this.order.status]
     },
     badgeInformation() {
-      if (this.order.status === 'inProgress') {
-        return 'IN PROGRESS'
-      } else if (this.order.status === 'todo') {
-        return 'TODO'
-      } else {
-        return 'DONE'
-      }
+      return informationStatus[this.order.status]
     }
   }
 }

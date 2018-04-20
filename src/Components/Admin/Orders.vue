@@ -32,10 +32,12 @@ export default {
   },
   computed: {
     ordersTodo() {
-      return this.$store.state.Order.filter(order => order.status === 'todo')
+      return this.$store.state.Order
+        .filter(order => order.status === 'todo')
     },
     ordersInProgress() {
-      return this.$store.state.Order.filter(order => order.status === 'inProgress')
+      return this.$store.state.Order
+        .filter(order => order.status === 'inProgress')
     }
   }
 }

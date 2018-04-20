@@ -12,12 +12,13 @@
       <span>summary day: {{summary}}</span>
     </b-card>
   </div>
-
 </template>
+
 <script>
 import { dbOrderRef } from '../../firebase/firebase-config'
 import { currentDate } from '../../Helpers/date'
 import Order from './Order.vue'
+
 export default {
   components: {
     Order
@@ -32,10 +33,13 @@ export default {
   },
   computed: {
     daySummary() {
-      return this.$store.state.Order.filter(order => order.status === 'done')
+      return this.$store.state.Order
+        .filter(order => order.status === 'done')
     },
     summary() {
-      return this.$store.state.Order.filter(order => order.status === 'done' && order.date === this.summaryDate).reduce((a, b) => a + parseFloat(b.total), 0)
+      return this.$store.state.Order
+        .filter(order => order.status === 'done' && order.date === this.summaryDate)
+        .reduce((a, b) => a + parseFloat(b.total), 0)
     }
   }
 }
