@@ -8,7 +8,7 @@
           <b-alert show variant="success">Product successful added to basket</b-alert>
         </div>
         <div v-else>
-          <a href="#" class="btn btn-primary" @click="addToBasket({name: item.name, price: item.price, index, quantity: 1, total: item.price})">Add to basket</a>
+          <a class="btn btn-primary" @click="addToBasket({name: item.name, price: item.price, index, quantity: 1, total: item.price})">Add to basket</a>
         </div>
       </div>
     </div>
