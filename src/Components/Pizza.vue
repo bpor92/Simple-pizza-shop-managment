@@ -1,14 +1,19 @@
 <template>
-  <div class="col-sm-6 form-group">
+  <div class="form-group">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{item.name}}</h5>
-        <p class="card-text">{{item.description}}</p>
+        <div class="form-group d-flex align-items-center">
+          <img src="http://via.placeholder.com/150x100" alt="">
+          <p class="card-text d-inline ml-2">{{item.description}}</p>
+        </div>
         <div v-if="isInBasket">
-          <b-alert show variant="success">Product successful added to basket</b-alert>
+          <b-alert show variant="success">Product successful added to basket
+            <icon name="check"></icon>
+          </b-alert>
         </div>
         <div v-else>
-          <a class="btn btn-primary" @click="addToBasket({name: item.name, price: item.price, index, quantity: 1, total: item.price})">Add to basket</a>
+          <a class="btn btn-success btn-block" @click="addToBasket({name: item.name, price: item.price, index, quantity: 1, total: item.price})">Add to basket</a>
         </div>
       </div>
     </div>

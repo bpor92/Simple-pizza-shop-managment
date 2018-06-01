@@ -23,8 +23,11 @@
       <div class="nav-item row" v-if="!isUserLoggedIn">
         <ul v-if="$store.state.basket.length" class="navbar-nav mr-auto">
           <router-link to="/basket" tag="li" class="nav-item ml-3" active-class="active" exact>
-            <a class="nav-link">Basket <span class="badge badge-secondary">{{$store.state.basket.length}}
-              </span></a>
+            <a class="nav-link">
+              <icon name="shopping-basket"></icon>
+              Basket
+              <span class="badge badge-secondary">{{$store.state.basket.length}}</span>
+            </a>
           </router-link>
         </ul>
       </div>

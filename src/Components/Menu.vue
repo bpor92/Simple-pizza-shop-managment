@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <Pizza v-for="(item, index) in $store.state.Menu" :item="item" :key="index"/>
+    <Pizza v-for="(item, index) in $store.state.Menu" :item="item" :key="index" class="col-sm-12 col-lg-6"/>
   </div>
 </template>
 
