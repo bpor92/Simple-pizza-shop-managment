@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import firebase from 'firebase'
 
 import Home from '../Components/Home.vue'
@@ -9,38 +11,48 @@ import Admin from '../Components/Admin/Admin.vue'
 import Orders from '../Components/Admin/Orders.vue'
 import DayReport from '../Components/Admin/DayReport.vue'
 
+Vue.use(VueRouter)
 
-const user = firebase.auth().currentUser;
+const router = new VueRouter({
+  routes: [
+    {path: '/', component: Home},
+    {path: '/menu', component: Menu},
+    {path: '/basket', component: Basket},
+    {path: '/settings', component: Settings},
+    {path: '/admin', component: Admin},
+    {path: '/admin/panel',
+      component: Panel,
+      beforeEnter: (to, from, next) => {
+        const user = firebase.auth().currentUser
+        if (user) {
+          next()
+        } else {
+          next(false)
+        }
+      }},
+    {path: '/admin/orders',
+      component: Orders,
+      beforeEnter: (to, from, next) => {
+        const user = firebase.auth().currentUser
+        if (user) {
+          next()
+        } else {
+          next(false)
+        }
+      }},
+    {path: '/admin/day-report',
+      component: DayReport,
+      beforeEnter: (to, from, next) => {
+        const user = firebase.auth().currentUser
+        if (user) {
+          next()
+        } else {
+          next(false)
+        }
+      }},
+    {path: '*', redirect: '/'}
+  ]
 
-export const routes = [
-  {path: '/', component: Home},
-  {path: '/menu', component: Menu },
-  {path: '/basket', component: Basket},
-  {path: '/settings', component: Settings},
-  {path: '/admin', component: Admin},
-  {path: '/admin/panel', component: Panel, beforeEnter: (to, from, next) => {
-    const user = firebase.auth().currentUser;
-    if(user){
-        next()
-    }else{
-        next(false)
-    }
-  }},
-  {path: '/admin/orders', component: Orders, beforeEnter: (to, from, next) => {
-    const user = firebase.auth().currentUser;
-    if(user){
-      next()
-    }else{
-      next(false)
-    }
-  }},
-  {path: '/admin/day-report', component: DayReport, beforeEnter: (to, from, next) => {
-    const user = firebase.auth().currentUser;
-    if(user){
-      next()
-    }else{
-      next(false)
-    }
-  }},
-  {path: '*', redirect: '/'}
-]
+})
+
+export default router
